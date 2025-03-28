@@ -24,9 +24,13 @@ struct PostsView: View {
                     .font(.subheadline)
             }
         }
+        .navigationTitle(user.name)
+        .task {
+            posts = await service.fetchPosts(user:user)
+        }
     }
 }
 
 #Preview {
-    PostsView(posts: posts)
+    PostsView(user: User(id: 1, name: "dsfdf", email: "sdfd", phone: "fsdfsd"))
 }

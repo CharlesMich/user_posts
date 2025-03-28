@@ -21,10 +21,12 @@ struct PostsService {
     }
     
     func fetchUsers() async -> [User] {
-        await fetch(type: [User].self, from: "https://jsonplaceholder.typicode.com/users") ?? []
+        await fetch(type: [User].self,
+                    from: "https://jsonplaceholder.typicode.com/users") ?? []
     }
     
     func fetchPosts(user: User) async -> [Post] {
-        await fetch(type: [Post].self, from: "https://jsonplaceholder.typecode.com/posts?userId=\(user.id)") ?? []
+        await fetch(type: [Post].self,
+                    from: "https://jsonplaceholder.typicode.com/posts?userId=\(user.id)") ?? []
     }
 }
