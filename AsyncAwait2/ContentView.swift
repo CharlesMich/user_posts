@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    private let service = PostsService()
+    @State private var users: [User] = []
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List(users) { user in
+                NavigationLink(destination: PostsView(user: user)) {
+                    VStack(alignment: .leading){
+                        Text(user.name)
+                            .font(.title3)
+                        Label(user.email, systemImage: "envelope")
+                        Label(user.phone, systemImage: "phone")
+                    }
+                    .font(.footnote)
+                }
+            }
+            .navigationTitle("Users")
         }
-        .padding()
+        .listStyle(.plain)
+        .task {
+            users = await service.fetchUsers()
+        }
     }
 }
 
